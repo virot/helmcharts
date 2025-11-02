@@ -44,6 +44,8 @@ spec:
               value: {{ .Values.nfs.mountPath | quote }}
             - name: VGW_REGION
               value: {{ .Values.env.VGW_REGION | quote }}
+            - name: VGW_HEALTH
+              value: {{ .Values.healthProbes.liveness.path | quote }}
           volumeMounts:
             - name: data
               mountPath: {{ .Values.nfs.mountPath }}
@@ -55,14 +57,6 @@ spec:
             periodSeconds: {{ .Values.healthProbes.liveness.periodSeconds }}
             timeoutSeconds: {{ .Values.healthProbes.liveness.timeoutSeconds }}
             failureThreshold: {{ .Values.healthProbes.liveness.failureThreshold }}
-          readinessProbe:
-            httpGet:
-              path: {{ .Values.healthProbes.readiness.path }}
-              port: 7070
-            initialDelaySeconds: {{ .Values.healthProbes.readiness.initialDelaySeconds }}
-            periodSeconds: {{ .Values.healthProbes.readiness.periodSeconds }}
-            timeoutSeconds: {{ .Values.healthProbes.readiness.timeoutSeconds }}
-            failureThreshold: {{ .Values.healthProbes.readiness.failureThreshold }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
       volumes:
         - name: data
