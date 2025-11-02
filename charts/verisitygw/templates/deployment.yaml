@@ -21,6 +21,23 @@ spec:
           args:
             - posix
             - --nometa
+            {{- if .Values.secret.enabled }}
+            - --access
+            - $(ROOT_ACCESS_KEY)
+            - --secret
+            - $(ROOT_SECRET_KEY)
+            {{- else }}
+            - --access
+            - {{ .Values.env.ROOT_ACCESS_KEY | quote }}
+            - --secret
+            - {{ include "versitygw.secretKey" . | quote }}
+            {{- end }}
+            - --region
+            - {{ .Values.env.VGW_REGION | quote }}
+            {{- if .Values.env.VGW_IAM_DIR }}
+            - --iam-dir
+            - {{ .Values.env.VGW_IAM_DIR | quote }}
+            {{- end }}
             - {{ .Values.nfs.mountPath }}
           ports:
             - containerPort: 7070
