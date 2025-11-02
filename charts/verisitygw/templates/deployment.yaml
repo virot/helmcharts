@@ -27,7 +27,7 @@ spec:
             - --iam-dir
             - {{ .Values.env.VGW_IAM_DIR | quote }}
             {{- end }}
-            - {{ .Values.nfs.bucketsPath }}
+            - {{ .Values.bucketsPath }}
           ports:
             - containerPort: 7070
           env:
