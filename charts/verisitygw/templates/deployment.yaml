@@ -21,17 +21,6 @@ spec:
           args:
             - posix
             - --nometa
-            {{- if .Values.secret.enabled }}
-            - --access
-            - $(ROOT_ACCESS_KEY)
-            - --secret
-            - $(ROOT_SECRET_KEY)
-            {{- else }}
-            - --access
-            - {{ .Values.env.ROOT_ACCESS_KEY | quote }}
-            - --secret
-            - {{ include "versitygw.secretKey" . | quote }}
-            {{- end }}
             - --region
             - {{ .Values.env.VGW_REGION | quote }}
             {{- if .Values.env.VGW_IAM_DIR }}
@@ -65,6 +54,10 @@ spec:
               value: {{ .Values.nfs.mountPath | quote }}
             - name: VGW_REGION
               value: {{ .Values.env.VGW_REGION | quote }}
+            {{- if .Values.env.VGW_IAM_DIR }}
+            - name: VGW_IAM_DIR
+              value: {{ .Values.env.VGW_IAM_DIR | quote }}
+            {{- end }}
             - name: VGW_HEALTH
               value: {{ .Values.healthProbes.liveness.path | quote }}
           volumeMounts:
