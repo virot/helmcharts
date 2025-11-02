@@ -7,7 +7,7 @@ image:
 
 service:
   type: ClusterIP
-  port: 80
+  port: 7070
 
 ingress:
   enabled: true
@@ -28,17 +28,26 @@ nfs:
   path: /exported/path
   mountPath: /data
 
+env:
+  ROOT_ACCESS_KEY: testuser
+  ROOT_SECRET_KEY: ""  # If empty, a random secret will be generated
+  VGW_BACKEND: posix
+  VGW_REGION: us-east-1
+
+# Optional: Use existing Kubernetes secret for credentials
+# If secretName is set, ROOT_ACCESS_KEY and ROOT_SECRET_KEY will be read from the secret
+# instead of using the values above
+secret:
+  enabled: false
+  name: ""
+  accessKeyName: ROOT_ACCESS_KEY
+  secretKeyName: ROOT_SECRET_KEY
+
 healthProbes:
   liveness:
-    path: /healthz
+    path: /health
     initialDelaySeconds: 10
     periodSeconds: 10
-    timeoutSeconds: 2
-    failureThreshold: 3
-  readiness:
-    path: /ready
-    initialDelaySeconds: 5
-    periodSeconds: 5
     timeoutSeconds: 2
     failureThreshold: 3
 

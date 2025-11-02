@@ -19,28 +19,47 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: 80
+            - containerPort: 7070
+          env:
+            {{- if .Values.secret.enabled }}
+            - name: ROOT_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.name }}
+                  key: {{ .Values.secret.accessKeyName }}
+            - name: ROOT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.name }}
+                  key: {{ .Values.secret.secretKeyName }}
+            {{- else }}
+            - name: ROOT_ACCESS_KEY
+              value: {{ .Values.env.ROOT_ACCESS_KEY | quote }}
+            - name: ROOT_SECRET_KEY
+              value: {{ include "versitygw.secretKey" . | quote }}
+            {{- end }}
+            - name: VGW_BACKEND
+              value: {{ .Values.env.VGW_BACKEND | quote }}
+            - name: VGW_BACKEND_ARG
+              value: {{ .Values.nfs.mountPath | quote }}
+            - name: VGW_REGION
+              value: {{ .Values.env.VGW_REGION | quote }}
+            - name: VGW_HEALTH
+              value: {{ .Values.healthProbes.liveness.path | quote }}
           volumeMounts:
-            - name: nfs-storage
+            - name: data
               mountPath: {{ .Values.nfs.mountPath }}
           livenessProbe:
             httpGet:
               path: {{ .Values.healthProbes.liveness.path }}
-              port: 80
+              port: 7070
             initialDelaySeconds: {{ .Values.healthProbes.liveness.initialDelaySeconds }}
             periodSeconds: {{ .Values.healthProbes.liveness.periodSeconds }}
             timeoutSeconds: {{ .Values.healthProbes.liveness.timeoutSeconds }}
             failureThreshold: {{ .Values.healthProbes.liveness.failureThreshold }}
-          readinessProbe:
-            httpGet:
-              path: {{ .Values.healthProbes.readiness.path }}
-              port: 80
-            initialDelaySeconds: {{ .Values.healthProbes.readiness.initialDelaySeconds }}
-            periodSeconds: {{ .Values.healthProbes.readiness.periodSeconds }}
-            timeoutSeconds: {{ .Values.healthProbes.readiness.timeoutSeconds }}
-            failureThreshold: {{ .Values.healthProbes.readiness.failureThreshold }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-        - name: nfs-storage
-          persistentVolumeClaim:
-            claimName: {{ include "versitygw.fullname" . }}-pvc
+        - name: data
+          nfs:
+            server: {{ .Values.nfs.server }}
+            path: {{ .Values.nfs.path }}
