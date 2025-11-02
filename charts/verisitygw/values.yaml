@@ -27,6 +27,7 @@ nfs:
   server: 10.0.0.1
   path: /exported/path
   mountPath: /data
+  bucketsPath: /data  # Path where buckets will be stored (can be different from mountPath)
 
 env:
   ROOT_ACCESS_KEY: testuser
