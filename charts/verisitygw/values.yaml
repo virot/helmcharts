@@ -9,6 +9,39 @@ service:
   type: ClusterIP
   port: 80
 
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+  hosts:
+    - host: versitygw.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - hosts:
+        - versitygw.local
+      secretName: versitygw-tls
+
+nfs:
+  server: 10.0.0.1
+  path: /exported/path
+  mountPath: /data
+
+healthProbes:
+  liveness:
+    path: /healthz
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 2
+    failureThreshold: 3
+  readiness:
+    path: /ready
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 2
+    failureThreshold: 3
+
 resources: {}
 
 nodeSelector: {}
