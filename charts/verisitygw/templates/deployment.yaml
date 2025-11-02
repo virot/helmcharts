@@ -20,4 +20,27 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 80
+          volumeMounts:
+            - name: nfs-storage
+              mountPath: {{ .Values.nfs.mountPath }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.healthProbes.liveness.path }}
+              port: 80
+            initialDelaySeconds: {{ .Values.healthProbes.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.healthProbes.liveness.periodSeconds }}
+            timeoutSeconds: {{ .Values.healthProbes.liveness.timeoutSeconds }}
+            failureThreshold: {{ .Values.healthProbes.liveness.failureThreshold }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.healthProbes.readiness.path }}
+              port: 80
+            initialDelaySeconds: {{ .Values.healthProbes.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.healthProbes.readiness.periodSeconds }}
+            timeoutSeconds: {{ .Values.healthProbes.readiness.timeoutSeconds }}
+            failureThreshold: {{ .Values.healthProbes.readiness.failureThreshold }}
           resources: {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: nfs-storage
+          persistentVolumeClaim:
+            claimName: {{ include "versitygw.fullname" . }}-pvc
