@@ -18,6 +18,10 @@ spec:
         - name: versitygw
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - posix
+            - --nometa
+            - /data
           ports:
             - containerPort: 7070
           env:
