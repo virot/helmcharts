@@ -30,9 +30,8 @@ nfs:
 
 env:
   ROOT_ACCESS_KEY: testuser
-  ROOT_SECRET_KEY: secret
+  ROOT_SECRET_KEY: ""  # If empty, a random secret will be generated
   VGW_BACKEND: posix
-  VGW_BACKEND_ARG: /data
   VGW_REGION: us-east-1
 
 # Optional: Use existing Kubernetes secret for credentials

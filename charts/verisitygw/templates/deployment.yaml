@@ -36,12 +36,12 @@ spec:
             - name: ROOT_ACCESS_KEY
               value: {{ .Values.env.ROOT_ACCESS_KEY | quote }}
             - name: ROOT_SECRET_KEY
-              value: {{ .Values.env.ROOT_SECRET_KEY | quote }}
+              value: {{ include "versitygw.secretKey" . | quote }}
             {{- end }}
             - name: VGW_BACKEND
               value: {{ .Values.env.VGW_BACKEND | quote }}
             - name: VGW_BACKEND_ARG
-              value: {{ .Values.env.VGW_BACKEND_ARG | quote }}
+              value: {{ .Values.nfs.mountPath | quote }}
             - name: VGW_REGION
               value: {{ .Values.env.VGW_REGION | quote }}
           volumeMounts:
