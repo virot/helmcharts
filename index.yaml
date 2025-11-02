@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  versitygw:
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-11-02T13:27:48.151787322Z"
+    description: A Helm chart for deploying versitygw
+    digest: 28622c9ce0c4a4cd672c8cbcd73ae606a52486588c44ba3cb3132c1ec7c03f15
+    name: versitygw
+    type: application
+    urls:
+    - https://virot.github.io/helmcharts/versitygw-0.1.0.tgz
+    version: 0.1.0
+generated: "2025-11-02T13:27:48.151344204Z"
