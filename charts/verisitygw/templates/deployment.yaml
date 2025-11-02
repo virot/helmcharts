@@ -21,7 +21,13 @@ spec:
           args:
             - posix
             - --nometa
-            - {{ .Values.nfs.mountPath }}
+            - --region
+            - {{ .Values.env.VGW_REGION | quote }}
+            {{- if .Values.env.VGW_IAM_DIR }}
+            - --iam-dir
+            - {{ .Values.env.VGW_IAM_DIR | quote }}
+            {{- end }}
+            - {{ .Values.bucketsPath }}
           ports:
             - containerPort: 7070
           env:
@@ -48,6 +54,10 @@ spec:
               value: {{ .Values.nfs.mountPath | quote }}
             - name: VGW_REGION
               value: {{ .Values.env.VGW_REGION | quote }}
+            {{- if .Values.env.VGW_IAM_DIR }}
+            - name: VGW_IAM_DIR
+              value: {{ .Values.env.VGW_IAM_DIR | quote }}
+            {{- end }}
             - name: VGW_HEALTH
               value: {{ .Values.healthProbes.liveness.path | quote }}
           volumeMounts:

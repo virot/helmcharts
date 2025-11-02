@@ -28,11 +28,14 @@ nfs:
   path: /exported/path
   mountPath: /data
 
+bucketsPath: /data  # Path where buckets will be stored (can be different from mountPath)
+
 env:
   ROOT_ACCESS_KEY: testuser
   ROOT_SECRET_KEY: ""  # If empty, a random secret will be generated
   VGW_BACKEND: posix
   VGW_REGION: us-east-1
+  VGW_IAM_DIR: ""  # If defined, run internal iam service within this directory
 
 # Optional: Use existing Kubernetes secret for credentials
 # If secretName is set, ROOT_ACCESS_KEY and ROOT_SECRET_KEY will be read from the secret
