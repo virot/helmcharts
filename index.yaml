@@ -3,7 +3,17 @@ entries:
   versitygw:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2025-11-02T21:47:24.790580124Z"
+    created: "2025-11-02T22:56:20.344727554Z"
+    description: A Helm chart for deploying versitygw
+    digest: 01a0bf42e7f8a9f017d0e03e6a5244408625616b55b88d31f1ec37d9b6b06cea
+    name: versitygw
+    type: application
+    urls:
+    - https://virot.github.io/helmcharts/versitygw-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2025-11-02T22:56:20.34443661Z"
     description: A Helm chart for deploying versitygw
     digest: ec6aaca84e29e03dbe7b0da73ea70748cbd88276289853410995d86615cc2ca5
     name: versitygw
@@ -13,7 +23,7 @@ entries:
     version: 0.2.1
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2025-11-02T21:47:24.790302239Z"
+    created: "2025-11-02T22:56:20.344163919Z"
     description: A Helm chart for deploying versitygw
     digest: 87374d11736a8603c0d74b8e8f46a5aeb1f7b870d81f792495105eb2abbe4f2d
     name: versitygw
@@ -23,7 +33,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2025-11-02T21:47:24.789992956Z"
+    created: "2025-11-02T22:56:20.343848118Z"
     description: A Helm chart for deploying versitygw
     digest: 3039b11a075ee34f23bc14a328d43cc140d7e9e8edcb560d85baa2addc3e2ad2
     name: versitygw
@@ -31,4 +41,4 @@ entries:
     urls:
     - https://virot.github.io/helmcharts/versitygw-0.1.0.tgz
     version: 0.1.0
-generated: "2025-11-02T21:47:24.789543471Z"
+generated: "2025-11-02T22:56:20.343413565Z"
