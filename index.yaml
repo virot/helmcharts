@@ -20,7 +20,7 @@ entries:
       catalog.cattle.io/type: app
     apiVersion: v2
     appVersion: "251130"
-    created: "2025-12-29T17:53:32.16547447Z"
+    created: "2025-12-29T17:58:27.991649618Z"
     description: Deploys PhotoPrism® Plus on Kubernetes with optional portal integration,
       persistent storage, and configurable authentication backends.
     digest: d6a8da84f01921ab4567b205b774b63ded9846722c2c3755c6112130322ad283
@@ -47,12 +47,58 @@ entries:
     urls:
     - https://virot.github.io/helmcharts/photoprism-plus-1.0.1+251130-b3068414c.tgz
     version: 1.0.1+251130-b3068414c
+  - annotations:
+      artifacthub.io/category: storage
+      artifacthub.io/license: AGPL-3.0-or-later
+      artifacthub.io/links: |-
+        - name: Documentation
+          url: https://docs.photoprism.app/
+        - name: Knowledge Base
+          url: https://www.photoprism.app/kb
+        - name: Support
+          url: https://www.photoprism.app/kb/getting-support
+      catalog.cattle.io/category: Digital Asset Management (DAM)
+      catalog.cattle.io/display-name: PhotoPrism® Plus
+      catalog.cattle.io/featured: "true"
+      catalog.cattle.io/os: linux
+      catalog.cattle.io/requests-cpu: 1000m
+      catalog.cattle.io/requests-memory: 1Gi
+      catalog.cattle.io/type: app
+    apiVersion: v2
+    appVersion: "251130"
+    created: "2025-12-29T17:58:27.990879064Z"
+    description: Deploys PhotoPrism® Plus on Kubernetes with optional portal integration,
+      persistent storage, and configurable authentication backends.
+    digest: c60a9447da571cab809574825132b51ce77ef8932b180981ea37ccccbd9568ad
+    home: https://www.photoprism.app/
+    icon: https://dl.photoprism.app/icons/logo/256.png
+    keywords:
+    - photos
+    - photoprism
+    - ai
+    - media
+    - dam
+    - webdav
+    - oidc
+    maintainers:
+    - name: PhotoPrism UG
+      url: https://www.photoprism.app/contact
+    name: photoprism-plus
+    sources:
+    - https://docs.photoprism.app/
+    - https://www.photoprism.app/kb
+    - https://www.photoprism.app/kb/getting-support
+    - https://github.com/photoprism/photoprism
+    type: application
+    urls:
+    - https://virot.github.io/helmcharts/photoprism-plus-0.9.1+251130-b3068414c.tgz
+    version: 0.9.1+251130-b3068414c
   versitygw:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2025-12-29T17:53:32.16664709Z"
+    created: "2025-12-29T17:58:27.992697206Z"
     description: A Helm chart for deploying versitygw
-    digest: 288884779314879d33c3593ab6c5f9dfcd56c87550d56692d0cc90d05f04f5ad
+    digest: 9f704422356b9aff340e178426d7e836f7ba355f18c172813d05ee39b64a56d8
     name: versitygw
     type: application
     urls:
@@ -60,7 +106,7 @@ entries:
     version: 0.2.2
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2025-12-29T17:53:32.166372597Z"
+    created: "2025-12-29T17:58:27.992444396Z"
     description: A Helm chart for deploying versitygw
     digest: ec6aaca84e29e03dbe7b0da73ea70748cbd88276289853410995d86615cc2ca5
     name: versitygw
@@ -70,7 +116,7 @@ entries:
     version: 0.2.1
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2025-12-29T17:53:32.166083557Z"
+    created: "2025-12-29T17:58:27.992176407Z"
     description: A Helm chart for deploying versitygw
     digest: 87374d11736a8603c0d74b8e8f46a5aeb1f7b870d81f792495105eb2abbe4f2d
     name: versitygw
@@ -80,7 +126,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2025-12-29T17:53:32.16579573Z"
+    created: "2025-12-29T17:58:27.991910843Z"
     description: A Helm chart for deploying versitygw
     digest: 3039b11a075ee34f23bc14a328d43cc140d7e9e8edcb560d85baa2addc3e2ad2
     name: versitygw
@@ -88,4 +134,4 @@ entries:
     urls:
     - https://virot.github.io/helmcharts/versitygw-0.1.0.tgz
     version: 0.1.0
-generated: "2025-12-29T17:53:32.164494029Z"
+generated: "2025-12-29T17:58:27.98994112Z"
