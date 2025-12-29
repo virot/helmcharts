@@ -18,7 +18,7 @@ General helpers for the PhotoPrism Plus chart
 {{- end -}}
 
 {{- define "photoprism-plus.chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version -}}
+{{- printf "%s-%s" .Chart.Name (replace .Chart.Version "+","_") -}}
 {{- end -}}
 
 {{- define "photoprism-plus.labels" -}}
