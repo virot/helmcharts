@@ -43,8 +43,7 @@ env:
 # Note: Once created, the secret will not be overwritten on upgrades
 secret:
   # Name of an existing secret to use (if set, chart won't create a secret)
-  enabled: false
-  name: "s3-creds"
+  existingSecret: ""
   # Keys in the secret for access and secret keys
   accessKeyName: ROOT_ACCESS_KEY
   secretKeyName: ROOT_SECRET_KEY
