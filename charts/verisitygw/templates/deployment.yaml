@@ -31,22 +31,28 @@ spec:
           ports:
             - containerPort: 7070
           env:
-            {{- if .Values.secret.enabled }}
+            {{- if .Values.secret.existingSecret }}
             - name: ROOT_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secret.name }}
+                  name: {{ .Values.secret.existingSecret }}
                   key: {{ .Values.secret.accessKeyName }}
             - name: ROOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secret.name }}
+                  name: {{ .Values.secret.existingSecret }}
                   key: {{ .Values.secret.secretKeyName }}
             {{- else }}
             - name: ROOT_ACCESS_KEY
-              value: {{ .Values.env.ROOT_ACCESS_KEY | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "versitygw.fullname" . }}
+                  key: {{ .Values.secret.accessKeyName }}
             - name: ROOT_SECRET_KEY
-              value: {{ include "versitygw.secretKey" . | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "versitygw.fullname" . }}
+                  key: {{ .Values.secret.secretKeyName }}
             {{- end }}
             - name: VGW_BACKEND
               value: {{ .Values.env.VGW_BACKEND | quote }}
@@ -60,6 +66,15 @@ spec:
             {{- end }}
             - name: VGW_HEALTH
               value: {{ .Values.healthProbes.liveness.path | quote }}
+            {{- range .Values.extraEnv }}
+            - name: {{ .name }}
+              {{- if .value }}
+              value: {{ .value | quote }}
+              {{- else if .valueFrom }}
+              valueFrom:
+                {{- toYaml .valueFrom | nindent 16 }}
+              {{- end }}
+            {{- end }}
           volumeMounts:
             - name: data
               mountPath: {{ .Values.nfs.mountPath }}
