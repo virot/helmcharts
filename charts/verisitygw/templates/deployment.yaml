@@ -67,6 +67,7 @@ spec:
             - name: VGW_HEALTH
               value: {{ .Values.healthProbes.liveness.path | quote }}
             {{- range .Values.extraEnv }}
+            {{- if or .value .valueFrom }}
             - name: {{ .name }}
               {{- if .value }}
               value: {{ .value | quote }}
@@ -74,6 +75,7 @@ spec:
               valueFrom:
                 {{- toYaml .valueFrom | nindent 16 }}
               {{- end }}
+            {{- end }}
             {{- end }}
           volumeMounts:
             - name: data

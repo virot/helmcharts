@@ -32,7 +32,7 @@ bucketsPath: /data  # Path where buckets will be stored (can be different from m
 
 env:
   ROOT_ACCESS_KEY: ""  # If empty and no existingSecret, a default value will be used
-  ROOT_SECRET_KEY: ""  # If empty and no existingSecret, a random secret will be generated
+  ROOT_SECRET_KEY: ""  # If empty and no existingSecret, a random secret will be generated on first install (stable across upgrades)
   VGW_BACKEND: posix
   VGW_REGION: us-east-1
   VGW_IAM_DIR: ""  # If defined, run internal iam service within this directory
@@ -40,6 +40,7 @@ env:
 # Secret configuration for ROOT_ACCESS_KEY and ROOT_SECRET_KEY
 # Option 1: Use an existing secret by setting existingSecret
 # Option 2: Let the chart create a secret automatically (default behavior)
+# Note: Once created, the secret will not be overwritten on upgrades
 secret:
   # Name of an existing secret to use (if set, chart won't create a secret)
   existingSecret: ""
@@ -48,6 +49,7 @@ secret:
   secretKeyName: ROOT_SECRET_KEY
 
 # Additional environment variables to add to the container
+# Each entry must have either 'value' or 'valueFrom' set
 # Example:
 # extraEnv:
 #   - name: CUSTOM_VAR
