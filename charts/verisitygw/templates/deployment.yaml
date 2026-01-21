@@ -29,16 +29,16 @@ spec:
           ports:
             - containerPort: 7070
           env:
-            {{- if .Values.secret.existingSecret }}
+            {{- if .Values.secret.enabled }}
             - name: ROOT_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secret.existingSecret }}
+                  name: {{ .Values.secret.name }}
                   key: {{ .Values.secret.accessKeyName }}
             - name: ROOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secret.existingSecret }}
+                  name: {{ .Values.secret.name }}
                   key: {{ .Values.secret.secretKeyName }}
             {{- else }}
             - name: ROOT_ACCESS_KEY

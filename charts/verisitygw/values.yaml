@@ -38,12 +38,14 @@ env:
   VGW_IAM_DIR: ""  # If defined, run internal iam service within this directory
 
 # Secret configuration for ROOT_ACCESS_KEY and ROOT_SECRET_KEY
-# Option 1: Use an existing secret by setting existingSecret
-# Option 2: Let the chart create a secret automatically (default behavior)
+# Option 1: Use an existing secret by setting enabled=true and providing the name
+# Option 2: Let the chart create a secret automatically (default behavior when enabled=false)
 # Note: Once created, the secret will not be overwritten on upgrades
 secret:
-  # Name of an existing secret to use (if set, chart won't create a secret)
-  existingSecret: ""
+  # Set to true to use an existing secret
+  enabled: false
+  # Name of the existing secret to use (when enabled=true)
+  name: ""
   # Keys in the secret for access and secret keys
   accessKeyName: ROOT_ACCESS_KEY
   secretKeyName: ROOT_SECRET_KEY
