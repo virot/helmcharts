@@ -21,8 +21,6 @@ spec:
           args:
             - posix
             - --nometa
-            - --region
-            - {{ .Values.env.VGW_REGION | quote }}
             {{- if .Values.env.VGW_IAM_DIR }}
             - --iam-dir
             - {{ .Values.env.VGW_IAM_DIR | quote }}
