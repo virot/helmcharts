@@ -21,7 +21,7 @@ spec:
           args:
             - posix
             {{- if .Values.metadata.enabled }}
-            - --metadata
+            - --sidecar
             - {{ .Values.metadata.mountPath | quote }}
             {{- end }}
             {{- if .Values.env.VGW_IAM_DIR }}
