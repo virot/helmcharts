@@ -20,9 +20,10 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
             - posix
-            - --nometa
-            - --region
-            - {{ .Values.env.VGW_REGION | quote }}
+            {{- if .Values.metadata.enabled }}
+            - --metadata
+            - {{ .Values.metadata.mountPath | quote }}
+            {{- end }}
             {{- if .Values.env.VGW_IAM_DIR }}
             - --iam-dir
             - {{ .Values.env.VGW_IAM_DIR | quote }}
@@ -35,16 +36,16 @@ spec:
             - name: ROOT_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secret.name }}
+                  name: {{ include "versitygw.fullname" . }}
                   key: {{ .Values.secret.accessKeyName }}
             - name: ROOT_SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secret.name }}
+                  name: {{ include "versitygw.fullname" . }}
                   key: {{ .Values.secret.secretKeyName }}
             {{- else }}
             - name: ROOT_ACCESS_KEY
-              value: {{ .Values.env.ROOT_ACCESS_KEY | quote }}
+              value: {{ .Values.env.ROOT_ACCESS_KEY | default "admin" | quote }}
             - name: ROOT_SECRET_KEY
               value: {{ include "versitygw.secretKey" . | quote }}
             {{- end }}
@@ -60,9 +61,24 @@ spec:
             {{- end }}
             - name: VGW_HEALTH
               value: {{ .Values.healthProbes.liveness.path | quote }}
+            {{- range .Values.extraEnv }}
+            {{- if or .value .valueFrom }}
+            - name: {{ .name }}
+              {{- if .value }}
+              value: {{ .value | quote }}
+              {{- else if .valueFrom }}
+              valueFrom:
+                {{- toYaml .valueFrom | nindent 16 }}
+              {{- end }}
+            {{- end }}
+            {{- end }}
           volumeMounts:
             - name: data
               mountPath: {{ .Values.nfs.mountPath }}
+            {{- if .Values.metadata.enabled }}
+            - name: metadata
+              mountPath: {{ .Values.metadata.mountPath }}
+            {{- end }}
           livenessProbe:
             httpGet:
               path: {{ .Values.healthProbes.liveness.path }}
@@ -77,3 +93,8 @@ spec:
           nfs:
             server: {{ .Values.nfs.server }}
             path: {{ .Values.nfs.path }}
+        {{- if .Values.metadata.enabled }}
+        - name: metadata
+          persistentVolumeClaim:
+            claimName: {{ include "versitygw.fullname" . }}-metadata
+        {{- end }}

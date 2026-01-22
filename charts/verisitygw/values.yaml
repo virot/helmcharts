@@ -30,21 +30,45 @@ nfs:
 
 bucketsPath: /data  # Path where buckets will be stored (can be different from mountPath)
 
+# Metadata storage configuration
+# When enabled, creates a PVC and mounts it for metadata storage
+metadata:
+  enabled: false
+  storageClass: ""  # Leave empty to use default storage class
+  size: 1Gi
+  mountPath: /metadata
+
 env:
-  ROOT_ACCESS_KEY: testuser
+  ROOT_ACCESS_KEY: ""  # If empty, a default value will be used
   ROOT_SECRET_KEY: ""  # If empty, a random secret will be generated
   VGW_BACKEND: posix
   VGW_REGION: us-east-1
   VGW_IAM_DIR: ""  # If defined, run internal iam service within this directory
 
-# Optional: Use existing Kubernetes secret for credentials
-# If secretName is set, ROOT_ACCESS_KEY and ROOT_SECRET_KEY will be read from the secret
-# instead of using the values above
+# Secret configuration for ROOT_ACCESS_KEY and ROOT_SECRET_KEY
+# Option 1: Create a Kubernetes secret by setting enabled=true (uses values from env section)
+# Option 2: Use plain text values from env section (default behavior when enabled=false)
 secret:
+  # Set to true to create a Kubernetes secret with the credentials
   enabled: false
+  # Name field is not used (secret name is auto-generated as {release}-versitygw)
   name: ""
+  # Keys in the secret for access and secret keys
   accessKeyName: ROOT_ACCESS_KEY
   secretKeyName: ROOT_SECRET_KEY
+
+# Additional environment variables to add to the container
+# Each entry must have either 'value' or 'valueFrom' set
+# Example:
+# extraEnv:
+#   - name: CUSTOM_VAR
+#     value: "custom_value"
+#   - name: SECRET_VAR
+#     valueFrom:
+#       secretKeyRef:
+#         name: my-secret
+#         key: my-key
+extraEnv: []
 
 healthProbes:
   liveness:
