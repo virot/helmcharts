@@ -1,0 +1,17 @@
+{{- if .Values.metadata.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "versitygw.fullname" . }}-metadata
+  labels:
+    app: {{ include "versitygw.name" . }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  {{- if .Values.metadata.storageClass }}
+  storageClassName: {{ .Values.metadata.storageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.metadata.size }}
+{{- end }}

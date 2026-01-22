@@ -30,17 +30,24 @@ nfs:
 
 bucketsPath: /data  # Path where buckets will be stored (can be different from mountPath)
 
+# Metadata storage configuration
+# When enabled, creates a PVC and mounts it for metadata storage
+metadata:
+  enabled: false
+  storageClass: ""  # Leave empty to use default storage class
+  size: 1Gi
+  mountPath: /metadata
+
 env:
-  ROOT_ACCESS_KEY: ""  # If empty and no existingSecret, a default value will be used
-  ROOT_SECRET_KEY: ""  # If empty and no existingSecret, a random secret will be generated on first install (stable across upgrades)
+  ROOT_ACCESS_KEY: ""  # If empty and secret.enabled=false, a default value will be used
+  ROOT_SECRET_KEY: ""  # If empty and secret.enabled=false, a random secret will be generated
   VGW_BACKEND: posix
   VGW_REGION: us-east-1
   VGW_IAM_DIR: ""  # If defined, run internal iam service within this directory
 
 # Secret configuration for ROOT_ACCESS_KEY and ROOT_SECRET_KEY
 # Option 1: Use an existing secret by setting enabled=true and providing the name
-# Option 2: Let the chart create a secret automatically (default behavior when enabled=false)
-# Note: Once created, the secret will not be overwritten on upgrades
+# Option 2: Use plain text values from env section (default behavior when enabled=false)
 secret:
   # Set to true to use an existing secret
   enabled: false
