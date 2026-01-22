@@ -23,8 +23,6 @@ spec:
             {{- if .Values.metadata.enabled }}
             - --metadata
             - {{ .Values.metadata.mountPath | quote }}
-            {{- else }}
-            - --nometa
             {{- end }}
             {{- if .Values.env.VGW_IAM_DIR }}
             - --iam-dir
