@@ -20,7 +20,7 @@ entries:
       catalog.cattle.io/type: app
     apiVersion: v2
     appVersion: "251130"
-    created: "2026-01-22T19:07:32.873283385Z"
+    created: "2026-01-22T19:17:48.003042668Z"
     description: Deploys PhotoPrism® Plus on Kubernetes with optional portal integration,
       persistent storage, and configurable authentication backends.
     digest: d6a8da84f01921ab4567b205b774b63ded9846722c2c3755c6112130322ad283
@@ -66,10 +66,10 @@ entries:
       catalog.cattle.io/type: app
     apiVersion: v2
     appVersion: "251130"
-    created: "2026-01-22T19:07:32.872424126Z"
+    created: "2026-01-22T19:17:48.002196918Z"
     description: Deploys PhotoPrism® Plus on Kubernetes with optional portal integration,
       persistent storage, and configurable authentication backends.
-    digest: 3721f8a5524a20f38014591d54c0e9df2d0b89df8ca4d3465a1f12749f8eda49
+    digest: 7019f91b4d068197fb23e355bf1dc0741c9847cf5ef64732e11575cb8a6518d6
     home: https://www.photoprism.app/
     icon: https://dl.photoprism.app/icons/logo/256.png
     keywords:
@@ -112,7 +112,7 @@ entries:
       catalog.cattle.io/type: app
     apiVersion: v2
     appVersion: "251130"
-    created: "2026-01-22T19:07:32.871670524Z"
+    created: "2026-01-22T19:17:48.000718329Z"
     description: Deploys PhotoPrism® Plus on Kubernetes with optional portal integration,
       persistent storage, and configurable authentication backends.
     digest: 93949bf7b7db7864db003354a9b058c6ac50d59b6f1405456e650542b34fbc8b
@@ -158,7 +158,7 @@ entries:
       catalog.cattle.io/type: app
     apiVersion: v2
     appVersion: "251130"
-    created: "2026-01-22T19:07:32.870886274Z"
+    created: "2026-01-22T19:17:47.999953962Z"
     description: Deploys PhotoPrism® Plus on Kubernetes with optional portal integration,
       persistent storage, and configurable authentication backends.
     digest: c60a9447da571cab809574825132b51ce77ef8932b180981ea37ccccbd9568ad
@@ -188,7 +188,17 @@ entries:
   versitygw:
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2026-01-22T19:07:32.877384337Z"
+    created: "2026-01-22T19:17:48.005098988Z"
+    description: A Helm chart for deploying versitygw
+    digest: 17a23e9b2428467d755ac7f589414db4da4bdf5ca8761fb551225e7a3a829ea3
+    name: versitygw
+    type: application
+    urls:
+    - https://virot.github.io/helmcharts/versitygw-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
+    appVersion: "1.0"
+    created: "2026-01-22T19:17:48.004792776Z"
     description: A Helm chart for deploying versitygw
     digest: df3b413ca6ee3a068a768cd6a5dcdc5acf258c17d839eebd12ef5d762410c6cf
     name: versitygw
@@ -198,7 +208,7 @@ entries:
     version: 0.3.1
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2026-01-22T19:07:32.876806231Z"
+    created: "2026-01-22T19:17:48.004486584Z"
     description: A Helm chart for deploying versitygw
     digest: 18d2ad281a6a5124824dbfb61b3354b0dd5c9915d00cfbd91b0964445f1ac66e
     name: versitygw
@@ -208,7 +218,7 @@ entries:
     version: 0.3.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2026-01-22T19:07:32.87621463Z"
+    created: "2026-01-22T19:17:48.004164392Z"
     description: A Helm chart for deploying versitygw
     digest: e25d0746bb5d0aafc59c69281e62cf681b020e8e6842a4e107df00521847c885
     name: versitygw
@@ -218,7 +228,7 @@ entries:
     version: 0.2.2
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2026-01-22T19:07:32.875760194Z"
+    created: "2026-01-22T19:17:48.003897905Z"
     description: A Helm chart for deploying versitygw
     digest: ec6aaca84e29e03dbe7b0da73ea70748cbd88276289853410995d86615cc2ca5
     name: versitygw
@@ -228,7 +238,7 @@ entries:
     version: 0.2.1
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2026-01-22T19:07:32.875276825Z"
+    created: "2026-01-22T19:17:48.003647968Z"
     description: A Helm chart for deploying versitygw
     digest: 87374d11736a8603c0d74b8e8f46a5aeb1f7b870d81f792495105eb2abbe4f2d
     name: versitygw
@@ -238,7 +248,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: "1.0"
-    created: "2026-01-22T19:07:32.874761175Z"
+    created: "2026-01-22T19:17:48.003328742Z"
     description: A Helm chart for deploying versitygw
     digest: 3039b11a075ee34f23bc14a328d43cc140d7e9e8edcb560d85baa2addc3e2ad2
     name: versitygw
@@ -246,4 +256,4 @@ entries:
     urls:
     - https://virot.github.io/helmcharts/versitygw-0.1.0.tgz
     version: 0.1.0
-generated: "2026-01-22T19:07:32.86995985Z"
+generated: "2026-01-22T19:17:47.999048521Z"
