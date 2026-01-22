@@ -39,19 +39,19 @@ metadata:
   mountPath: /metadata
 
 env:
-  ROOT_ACCESS_KEY: ""  # If empty and secret.enabled=false, a default value will be used
-  ROOT_SECRET_KEY: ""  # If empty and secret.enabled=false, a random secret will be generated
+  ROOT_ACCESS_KEY: ""  # If empty, a default value will be used
+  ROOT_SECRET_KEY: ""  # If empty, a random secret will be generated
   VGW_BACKEND: posix
   VGW_REGION: us-east-1
   VGW_IAM_DIR: ""  # If defined, run internal iam service within this directory
 
 # Secret configuration for ROOT_ACCESS_KEY and ROOT_SECRET_KEY
-# Option 1: Use an existing secret by setting enabled=true and providing the name
+# Option 1: Create a Kubernetes secret by setting enabled=true (uses values from env section)
 # Option 2: Use plain text values from env section (default behavior when enabled=false)
 secret:
-  # Set to true to use an existing secret
+  # Set to true to create a Kubernetes secret with the credentials
   enabled: false
-  # Name of the existing secret to use (when enabled=true)
+  # Name field is not used (secret name is auto-generated as {release}-versitygw)
   name: ""
   # Keys in the secret for access and secret keys
   accessKeyName: ROOT_ACCESS_KEY
