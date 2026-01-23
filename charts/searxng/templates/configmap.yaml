@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "searxng.fullname" . }}-config
+  labels:
+    {{- include "searxng.labels" . | nindent 4 }}
+data:
+  settings.yml: |
+    use_default_settings: true
+    
+    general:
+      debug: {{ .Values.searxng.general.debug }}
+      instance_name: {{ .Values.searxng.general.instance_name | quote }}
+      {{- if .Values.searxng.general.contact_url }}
+      contact_url: {{ .Values.searxng.general.contact_url | quote }}
+      {{- end }}
+    
+    search:
+      safe_search: {{ .Values.searxng.search.safe_search }}
+      autocomplete: {{ .Values.searxng.search.autocomplete | quote }}
+      default_lang: {{ .Values.searxng.search.default_lang | quote }}
+      formats:
+        {{- range .Values.searxng.search.formats }}
+        - {{ . }}
+        {{- end }}
+    
+    server:
+      {{- if .Values.searxng.server.secret_key }}
+      secret_key: {{ .Values.searxng.server.secret_key | quote }}
+      {{- else }}
+      secret_key: {{ randAlphaNum 32 | b64enc | quote }}
+      {{- end }}
+      limiter: {{ .Values.searxng.server.limiter }}
+      image_proxy: {{ .Values.searxng.server.image_proxy }}
+      method: {{ .Values.searxng.server.method | quote }}
+    
+    ui:
+      default_theme: {{ .Values.searxng.ui.default_theme | quote }}
+      default_locale: {{ .Values.searxng.ui.default_locale | quote }}
+      query_in_title: {{ .Values.searxng.ui.query_in_title }}
+      infinite_scroll: {{ .Values.searxng.ui.infinite_scroll }}
+      center_alignment: {{ .Values.searxng.ui.center_alignment }}
+    
+    outgoing:
+      request_timeout: {{ .Values.searxng.outgoing.request_timeout }}
+      max_request_timeout: {{ .Values.searxng.outgoing.max_request_timeout }}
+      {{- if .Values.searxng.outgoing.useragent_suffix }}
+      useragent_suffix: {{ .Values.searxng.outgoing.useragent_suffix | quote }}
+      {{- end }}
+      enable_http2: {{ .Values.searxng.outgoing.enable_http2 }}
+    
+    {{- if .Values.redis.enabled }}
+    redis:
+      url: {{ include "searxng.redis.url" . }}
+    {{- end }}

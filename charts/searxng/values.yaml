@@ -1,0 +1,182 @@
+# Default values for SearXNG Helm chart
+
+replicaCount: 1
+
+image:
+  repository: docker.io/searxng/searxng
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+# Service configuration
+service:
+  type: ClusterIP
+  port: 8080
+
+# Ingress configuration with TLS support
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    # nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - host: searxng.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+    # - secretName: searxng-tls
+    #   hosts:
+    #     - searxng.local
+
+# Persistent volume configuration
+persistence:
+  # Storage class for all PVCs (leave empty for default)
+  storageClassName: ""
+  
+  # Configuration files persistence (/etc/searxng)
+  config:
+    enabled: true
+    size: 1Gi
+    accessModes:
+      - ReadWriteOnce
+    mountPath: /etc/searxng
+  
+  # Cache persistence (/var/cache/searxng)
+  cache:
+    enabled: true
+    size: 1Gi
+    accessModes:
+      - ReadWriteOnce
+    mountPath: /var/cache/searxng
+
+# SearXNG environment variables
+env:
+  # Base URL for SearXNG (should match your ingress hostname)
+  SEARXNG_BASE_URL: "https://searxng.local/"
+  
+  # Instance name
+  SEARXNG_INSTANCE_NAME: "SearXNG"
+  
+  # Bind address (keep as 0.0.0.0:8080 for Kubernetes)
+  SEARXNG_BIND_ADDRESS: "0.0.0.0:8080"
+  
+  # Redis URL for cache (optional, leave empty to disable)
+  # Example: "redis://redis:6379/0"
+  SEARXNG_REDIS_URL: ""
+
+# SearXNG settings.yml configuration
+# These values will be merged with the default settings
+# For complete options, see: https://docs.searxng.org/admin/settings/index.html
+searxng:
+  # General settings
+  general:
+    debug: false
+    instance_name: "SearXNG"
+    contact_url: ""
+    
+  # Search settings
+  search:
+    safe_search: 0  # 0=None, 1=Moderate, 2=Strict
+    autocomplete: "google"
+    default_lang: "en"
+    formats:
+      - html
+      - json
+    
+  # Server settings
+  server:
+    secret_key: ""  # Leave empty to auto-generate
+    limiter: false
+    image_proxy: true
+    method: "GET"
+    
+  # UI settings
+  ui:
+    default_theme: "simple"
+    default_locale: "en"
+    query_in_title: false
+    infinite_scroll: false
+    center_alignment: false
+    
+  # Outgoing settings (for search requests)
+  outgoing:
+    request_timeout: 3.0
+    max_request_timeout: 10.0
+    useragent_suffix: ""
+    enable_http2: true
+
+# Redis configuration (optional)
+# If you want to deploy Redis alongside SearXNG
+redis:
+  enabled: false
+  image:
+    repository: docker.io/valkey/valkey
+    tag: "8-alpine"
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 6379
+  persistence:
+    enabled: true
+    size: 1Gi
+    storageClassName: ""
+    accessModes:
+      - ReadWriteOnce
+
+# Security context
+securityContext:
+  allowPrivilegeEscalation: false
+  runAsNonRoot: true
+  runAsUser: 977
+  runAsGroup: 977
+  capabilities:
+    drop:
+      - ALL
+  seccompProfile:
+    type: RuntimeDefault
+
+podSecurityContext:
+  fsGroup: 977
+  fsGroupChangePolicy: OnRootMismatch
+
+# Resource limits and requests
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+# Node selector
+nodeSelector: {}
+
+# Tolerations
+tolerations: []
+
+# Affinity
+affinity: {}
+
+# Liveness and readiness probes
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 3
