@@ -1,0 +1,21 @@
+apiVersion: v2
+name: searxng
+description: A Helm chart for deploying SearXNG - a privacy-respecting metasearch engine
+type: application
+version: 0.1.0
+appVersion: "latest"
+home: https://docs.searxng.org/
+icon: https://raw.githubusercontent.com/searxng/searxng/master/src/brand/searxng.svg
+keywords:
+  - search
+  - privacy
+  - metasearch
+  - searxng
+maintainers:
+  - name: virot
+    url: https://github.com/virot
+sources:
+  - https://github.com/searxng/searxng
+  - https://docs.searxng.org/
+annotations:
+  artifacthub.io/category: search

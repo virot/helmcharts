@@ -1,0 +1,19 @@
+{{- if .Values.persistence.config.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "searxng.fullname" . }}-config
+  labels:
+    {{- include "searxng.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    {{- range .Values.persistence.config.accessModes }}
+    - {{ . | quote }}
+    {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.config.size | quote }}
+  {{- if .Values.persistence.storageClassName }}
+  storageClassName: {{ .Values.persistence.storageClassName }}
+  {{- end }}
+{{- end }}
