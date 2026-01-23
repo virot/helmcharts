@@ -4,7 +4,7 @@ replicaCount: 1
 
 image:
   repository: docker.io/searxng/searxng
-  tag: "latest"
+  tag: "latest"  # It's recommended to use a specific version in production
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []

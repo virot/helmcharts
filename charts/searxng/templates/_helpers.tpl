@@ -49,17 +49,6 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
-Create the name of the service account to use
-*/}}
-{{- define "searxng.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "searxng.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
-{{- end }}
-
-{{/*
 Redis service name
 */}}
 {{- define "searxng.redis.fullname" -}}
